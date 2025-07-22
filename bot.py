@@ -2,6 +2,7 @@ import os
 from dotenv import load_dotenv
 import discord
 from discord.ext import commands
+from basic.time import timestamp
 
 load_dotenv() # .env file read
 TOKEN = os.getenv('DISCORD_BOT_TOKEN')
