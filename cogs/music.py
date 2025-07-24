@@ -61,20 +61,20 @@ class Music(commands.Cog):
             except Exception as e:
                 await interaction.followup.send(f"Failed to play. Error: `{str(e)}`")
         
-    @app_commands.command(name="pause", description="")
-    async def pause(self, interaction: discord.Interaction):
-        print("/pause called")
-        # @TODO
+    # @app_commands.command(name="pause", description="")
+    # async def pause(self, interaction: discord.Interaction):
+    #     print("/pause called")
+    #     # @TODO
         
-    @app_commands.command(name="skip", description="")
-    async def skip(self, interaction: discord.Interaction):
-        print("/skip called")
-        # @TODO
+    # @app_commands.command(name="skip", description="")
+    # async def skip(self, interaction: discord.Interaction):
+    #     print("/skip called")
+    #     # @TODO
     
-    @app_commands.command(name="queue", description="")
-    async def queue(self, interaction: discord.Interaction):
-        print("/queue called")
-        # @TODO
+    # @app_commands.command(name="queue", description="")
+    # async def queue(self, interaction: discord.Interaction):
+    #     print("/queue called")
+    #     # @TODO
         
 async def setup(bot):
     await bot.add_cog(Music(bot))
