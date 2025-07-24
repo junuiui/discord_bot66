@@ -1,7 +1,8 @@
-import discord 
+import random
+import discord
 from discord import app_commands
 from discord.ext import commands
-import random
+from datetime import datetime, timedelta
 
 class Games(commands.Cog):
     def __init__(self, bot):
@@ -54,6 +55,24 @@ class Games(commands.Cog):
     async def yes_or_no(self, interaction: discord.Interaction):
         answer = random.choice(["Yes", "No"])
         await interaction.response.send_message(answer)
+    
+    @app_commands.command(name="random_date", description="Get a random date between two dates")
+    @app_commands.describe(start="Start date in YYYY-MM-DD", end="End date in YYYY-MM-DD")
+    async def random_date(self, interaction: discord.Interaction, start: str, end: str):
+        try:
+            start_date = datetime.strptime(start, "%Y-%m-%d")
+            end_date = datetime.strptime(end, "%Y-%m-%d")
+        except ValueError:
+            await interaction.response.send_message("❌ Invalid date format. Use YYYY-MM-DD")
+            return
+
+        if start_date > end_date:
+            await interaction.response.send_message("❌ Start date must be before end date")
+            return
+
+        delta = end_date - start_date
+        random_day = start_date + timedelta(days=random.randint(0, delta.days))
+        await interaction.response.send_message(f"📅 Random date: **{random_day.strftime('%Y-%m-%d')}**")
     
 async def setup(bot):
     await bot.add_cog(Games(bot))
