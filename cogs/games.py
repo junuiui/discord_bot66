@@ -35,7 +35,7 @@ class Games(commands.Cog):
         result = random.randint(1, sides)
         await interaction.response.send_message(f"You rolled: **{result}**")
 
-    @app_commands.command(name="Flip Coin", description="Flipping a coin")
+    @app_commands.command(name="flip_coin", description="Flipping a coin")
     async def flip_coin(self, interaction: discord.Interaction):
         result = random.choice(["Heads", "Tails"])
         await interaction.response.send_message(f"It's: **{result}**!")    
