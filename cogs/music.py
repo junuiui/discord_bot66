@@ -4,7 +4,6 @@ from discord.ext import commands
 # from discord import FFmpegPCMAudio
 # import yt_dlp
 # import asyncio
-from basic.time import timestamp
 
 class Music(commands.Cog):
     def __init__(self, bot):
@@ -13,7 +12,6 @@ class Music(commands.Cog):
         
     # @app_commands.command(name="join", description="Joining the user's current vc")
     # async def join(self, interaction: discord.Interaction):
-    #     print("Log: " + timestamp() + " /join")
     #     if not interaction.user.voice:
     #         await interaction.response.send_message("Error. You must be in the vc")
     #         return
