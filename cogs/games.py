@@ -63,16 +63,16 @@ class Games(commands.Cog):
             start_date = datetime.strptime(start, "%Y-%m-%d")
             end_date = datetime.strptime(end, "%Y-%m-%d")
         except ValueError:
-            await interaction.response.send_message("❌ Invalid date format. Use YYYY-MM-DD")
+            await interaction.response.send_message("Invalid date format. Use YYYY-MM-DD")
             return
 
         if start_date > end_date:
-            await interaction.response.send_message("❌ Start date must be before end date")
+            await interaction.response.send_message("Start date must be before end date")
             return
 
         delta = end_date - start_date
         random_day = start_date + timedelta(days=random.randint(0, delta.days))
-        await interaction.response.send_message(f"📅 Random date: **{random_day.strftime('%Y-%m-%d')}**")
+        await interaction.response.send_message(f"Random date: **{random_day.strftime('%Y-%m-%d')}**")
     
 async def setup(bot):
     await bot.add_cog(Games(bot))
