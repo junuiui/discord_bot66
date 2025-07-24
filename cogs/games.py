@@ -25,7 +25,8 @@ class Games(commands.Cog):
             await interaction.response.send_message("Please enter at least two options, separated by commas.", ephemeral=True)
             return
         choice = random.choice(items)
-        await interaction.response.send_message(f"Result: **{choice}**")
+        question = ', '.join(items)
+        await interaction.response.send_message(f"From **{question}**\nResult: **{choice}**")
         
     @app_commands.command(name="roll_dice", description="Roll a dice")
     @app_commands.describe(sides="Number of sides on the dice")
