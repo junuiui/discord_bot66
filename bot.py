@@ -20,7 +20,8 @@ async def on_ready():
         print(f"Sync failed: {e}")
     finally:
         print(f'{bot.user} is ON')
-        activity = discord.Game(name="아쥬레 | use \"/\" to start")
+        # activity = discord.Game(name="아쥬레 | use \"/\" to start")
+        activity = discord.Activity(type=discord.ActivityType.watching, name="아쥬레 | use \"/info\" to start")
         await bot.change_presence(status=discord.Status.online, activity=activity)
 
 async def load_cogs():
