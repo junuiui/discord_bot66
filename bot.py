@@ -18,8 +18,10 @@ async def on_ready():
         print(f"🔁 Synced {len(synced)} slash command(s)")
     except Exception as e:
         print(f"Sync failed: {e}")
-    print(f'{bot.user} is ON')
-
+    finally:
+        print(f'{bot.user} is ON')
+        activity = discord.Game(name="아쥬레 | use \"/\" to start")
+        await bot.change_presence(status=discord.Status.online, activity=activity)
 
 async def load_cogs():
     for filename in os.listdir('./cogs'):
