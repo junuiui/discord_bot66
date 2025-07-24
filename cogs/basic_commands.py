@@ -13,7 +13,7 @@ class BasicCommands(commands.Cog):
     @app_commands.command(name="info", description="Show info about the bot and developer.")
     async def info(self, interaction: discord.Interaction):
         embed = discord.Embed(
-            title="🤖 Azure (아쥬레) Bot Info",
+            title="Azure (아쥬레) Bot Info",
             description="A Discord bot with utility, random, and music features.",
             color=discord.Color.blue()
         )
@@ -21,7 +21,7 @@ class BasicCommands(commands.Cog):
         embed.add_field(name="\u200b", value="―" * 40, inline=False)
         embed.add_field(name="Developer", value="Jun Hong", inline=False)
         embed.add_field(name="Technologies", value="Python, discord.py", inline=False)
-        embed.add_field(name="GitHub", value="[Your Repository Link](https://github.com/your-repo)", inline=False)
+        embed.add_field(name="GitHub", value="[GitHub Link](https://github.com/junuiui/discord_bot66)", inline=False)
         embed.add_field(name="\u200b", value="―" * 40, inline=False) 
         embed.set_footer(text="For a list of commands, use /help")
         
