@@ -20,7 +20,7 @@ class Games(commands.Cog):
         await interaction.response.defer(thinking=True)
         await asyncio.sleep(1) 
         
-        await interaction.response.send_message(f"Random number between `{start}` and `{end}`: **{number}**")
+        await interaction.followup.send(f"Random number between `{start}` and `{end}`: **{number}**")
         
     @app_commands.command(name="choose", description="Choose one from the given options")
     @app_commands.describe(options="Type options separated by commas (e.g. A, B, C)")
@@ -34,7 +34,7 @@ class Games(commands.Cog):
         
         await interaction.response.defer(thinking=True)
         await asyncio.sleep(1) 
-        await interaction.response.send_message(f"From **{question}**\nResult: **{choice}**")
+        await interaction.followup.send(f"From **{question}**\nResult: **{choice}**")
         
     @app_commands.command(name="roll_dice", description="Roll a dice")
     @app_commands.describe(sides="Number of sides on the dice")
@@ -46,12 +46,14 @@ class Games(commands.Cog):
         
         await interaction.response.defer(thinking=True)
         await asyncio.sleep(1) 
-        await interaction.response.send_message(f"You rolled: **{result}**")
+        await interaction.followup.send(f"You rolled: **{result}**")
 
     @app_commands.command(name="flip_coin", description="Flipping a coin")
     async def flip_coin(self, interaction: discord.Interaction):
         result = random.choice(["Heads", "Tails"])
-        await interaction.response.send_message(f"It's: **{result}**!")    
+        await interaction.response.defer(thinking=True)
+        await asyncio.sleep(1) 
+        await interaction.followup.send(f"It's: **{result}**!")    
     
     @app_commands.command(name="shuffle", description="Shuffle a list of items")
     @app_commands.describe(items="Comma-separated items to shuffle")
@@ -64,7 +66,7 @@ class Games(commands.Cog):
         
         await interaction.response.defer(thinking=True)
         await asyncio.sleep(1) 
-        await interaction.response.send_message(f"Shuffled: {', '.join(item_list)}")
+        await interaction.followup.send(f"Shuffled: {', '.join(item_list)}")
     
     @app_commands.command(name="yes_or_no", description="Get a simple yes or no")
     async def yes_or_no(self, interaction: discord.Interaction):
@@ -72,7 +74,7 @@ class Games(commands.Cog):
         
         await interaction.response.defer(thinking=True)
         await asyncio.sleep(1) 
-        await interaction.response.send_message(answer)
+        await interaction.followup.send(answer)
     
     @app_commands.command(name="random_date", description="Get a random date between two dates")
     @app_commands.describe(start="Start date in YYYY-MM-DD", end="End date in YYYY-MM-DD")
@@ -93,7 +95,7 @@ class Games(commands.Cog):
         
         await interaction.response.defer(thinking=True)
         await asyncio.sleep(1) 
-        await interaction.response.send_message(f"Random date: **{random_day.strftime('%Y-%m-%d')}**")
+        await interaction.followup.send(f"Random date: **{random_day.strftime('%Y-%m-%d')}**")
     
 async def setup(bot):
     await bot.add_cog(Games(bot))
