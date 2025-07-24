@@ -6,6 +6,9 @@ from discord.ext import commands
 load_dotenv() # .env file read
 TOKEN = os.getenv('DISCORD_BOT_TOKEN')
 
+intents = discord.Intents.all()
+intents.voice_states = True
+
 bot = commands.Bot(command_prefix=commands.when_mentioned, intents=discord.Intents.all())
     
 @bot.event

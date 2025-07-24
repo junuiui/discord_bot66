@@ -9,7 +9,6 @@ import nacl
 class Voice_Channel(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.queue = []
     
     @commands.Cog.listener()
     async def on_ready(self):
@@ -17,36 +16,37 @@ class Voice_Channel(commands.Cog):
         
     @app_commands.command(name="join", description="Joining the user's current vc")
     async def join(self, interaction: discord.Interaction):
-        print("👉 /join called")
-        
-        await interaction.response.defer()  # ⏳ 응답 지연 선언
+        print("/join called")
 
-        if not interaction.user.voice:
-            await interaction.followup.send("Error. You must be in the vc")
+        vc = interaction.user.voice
+        
+        # Check user's vc status
+        if not vc or not vc.channel:
+            await interaction.response.send_message("You are not in a voice channel. Make sure you are in the voice channel", ephemeral=True)
             return
 
-        channel = interaction.user.voice.channel
-        voice_client = interaction.guild.voice_client
-
+        channel = vc.channel
+        await interaction.response.send_message(f"Connecting to **{channel.name}**...", ephemeral=True)
         try:
-            if voice_client is not None:
-                if voice_client.channel == channel:
-                    await interaction.followup.send(f"Already in **{channel}**!")
-                    return
-                else:
-                    print("🔁 Moving to", channel)
-                    await voice_client.move_to(channel)
-            else:
-                print("🎤 Connecting to", channel)
-                await channel.connect()
-            
-            await interaction.followup.send(f"Joined **{channel}**!!")
-
+            await channel.connect()
+            await interaction.followup.send(f"Successfully connected to **{channel.name}**", ephemeral=True)
+        except discord.ClientException:
+            await interaction.followup.send(f"Already connected to **{channel.name}**", ephemeral=True)
         except Exception as e:
-            print(f"❌ Failed to join VC. Error: {e}")
-            await interaction.followup.send(f"❌ Failed to join VC. Error: {e}")
+            await interaction.followup.send(f"Failed to join VC. Error: **{str(e)}**", ephemeral=True)
+        
+    @app_commands.command(name="leave", description="Leave the voice channel")
+    async def leave(self, interaction: discord.Interaction):
+        vc = interaction.guild.voice_client
 
+        if not vc or not vc.is_connected():
+            await interaction.response.send_message("I'm not connected to any voice channel.", ephemeral=True)
+            return
+
+        channel = vc.channel
+        await vc.disconnect()
+        await interaction.response.send_message(f"Disconnected from **{channel.name}**.", ephemeral=True)
         
 async def setup(bot):
-    await bot.add_cog(Music(bot))
+    await bot.add_cog(Voice_Channel(bot))
 
