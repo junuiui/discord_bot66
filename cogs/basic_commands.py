@@ -27,23 +27,28 @@ class BasicCommands(commands.Cog):
         
         await interaction.response.send_message(embed=embed)
 
-    @app_commands.command(name="help", description="Show help information and command list.")
     async def help(self, interaction: discord.Interaction):
         embed = discord.Embed(
             title="Help Menu",
-            description="Here's a list of available slash commands:",
+            description="Here's a list of available and unavailable slash commands:",
             color=discord.Color.green()
         )
 
+        # Available commands
+        embed.add_field(name="**Available Commands**", value="\u200b", inline=False)
         embed.add_field(name="`/info`", value="Show info about the bot and developer.", inline=False)
         embed.add_field(name="`/help`", value="Show this help message.", inline=False)
         embed.add_field(name="`/random_number min max`", value="Get a random number in a given range.", inline=False)
         embed.add_field(name="`/choose options`", value="Choose one option from a comma-separated list.", inline=False)
-        embed.add_field(name="`/join`", value="(NOT WORKING) Join the voice channel you're in.", inline=False)
         embed.add_field(name="`/leave`", value="Leave the voice channel.", inline=False)
-        embed.add_field(name="`/play query`", value="Search and play music from YouTube.", inline=False)
+
+        # 🚫 Unavailable commands
+        embed.add_field(name="**Unavailable Commands (temporarily disabled)**", value="\u200b", inline=False)
+        embed.add_field(name="`/join`", value="(NOT WORKING) Join the voice channel you're in.", inline=False)
+        embed.add_field(name="`/play query`", value="(NOT WORKING) Search and play music from YouTube.", inline=False)
 
         await interaction.response.send_message(embed=embed)
+
     
     @app_commands.command(name="ping", description="Latency Test")
     async def ping(self, interaction: discord.Interaction):
