@@ -38,7 +38,7 @@ class Music(commands.Cog):
         print("/play called")
         
         # disabled
-        await interaction.response.send_message("Sorry! The /play command is temporarily unavailable due to a technical issue.", ephemeral=True)
+        await interaction.response.send_message("Sorry! The /play command is temporarily unavailable due to a technical issue. Try /help to see what’s available!", ephemeral=True)
         return
         #####################
         
@@ -82,7 +82,7 @@ class Music(commands.Cog):
         print("/pause called")
 
         # Disabled
-        await interaction.response.send_message("Sorry! The /pause command is temporarily unavailable due to a technical issue.", ephemeral=True)
+        await interaction.response.send_message("Sorry! The /pause command is temporarily unavailable due to a technical issue. Try /help to see what’s available!", ephemeral=True)
         return
 
         if self.vc and self.vc.is_playing():
@@ -96,7 +96,7 @@ class Music(commands.Cog):
         print("/skip called")
 
         # Disabled
-        await interaction.response.send_message("Sorry! The /skip command is temporarily unavailable due to a technical issue.", ephemeral=True)
+        await interaction.response.send_message("Sorry! The /skip command is temporarily unavailable due to a technical issue. Try /help to see what’s available!", ephemeral=True)
         return
 
         if self.vc and self.vc.is_playing():
@@ -110,7 +110,7 @@ class Music(commands.Cog):
         print("/queue called")
 
         # Disabled
-        await interaction.response.send_message("Sorry! The /queue command is temporarily unavailable due to a technical issue.", ephemeral=True)
+        await interaction.response.send_message("Sorry! The /queue command is temporarily unavailable due to a technical issue. Try /help to see what’s available!", ephemeral=True)
         return
 
         if len(self.queue) == 0:

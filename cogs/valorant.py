@@ -63,7 +63,7 @@ class Valorant(commands.Cog):
     async def valorant_recent_match_info(self, interaction: discord.Interaction, player: str):
         
         # Disabled
-        await interaction.response.send_message("/valorant_recent_match_info is currently disabled due to API KEY reset")
+        await interaction.response.send_message("/valorant_recent_match_info is currently disabled due to API KEY reset. Try /help to see what’s available!")
         return 
         ##############
         
@@ -115,7 +115,7 @@ class Valorant(commands.Cog):
     async def valorant_find_player(self, interaction: discord.Interaction, player: str):
         
         # Disabled
-        await interaction.response.send_message("/valorant_recent_match_info is currently disabled due to API KEY reset")
+        await interaction.response.send_message("/valorant_recent_match_info is currently disabled due to API KEY reset. Try /help to see what’s available!")
         return 
         ##############
         

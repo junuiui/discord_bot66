@@ -19,7 +19,7 @@ class Voice_Channel(commands.Cog):
         print("/join called")
         
         # disabled
-        await interaction.response.send_message("Sorry! The /join command is temporarily unavailable due to a technical issue.", ephemeral=True)
+        await interaction.response.send_message("Sorry! The /join command is temporarily unavailable due to a technical issue. Try /help to see what’s available!", ephemeral=True)
         return
         #####################
 
@@ -45,7 +45,7 @@ class Voice_Channel(commands.Cog):
         vc = interaction.guild.voice_client
 
         if not vc or not vc.is_connected():
-            await interaction.response.send_message("I'm not connected to any voice channel.", ephemeral=True)
+            await interaction.response.send_message("I'm not connected to any voice channel. Try /help to see what’s available!", ephemeral=True)
             return
 
         channel = vc.channel

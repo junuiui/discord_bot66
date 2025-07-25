@@ -16,7 +16,7 @@ class AI(commands.Cog):
     async def ask(self, interaction: Interaction, question: str):
         
         # disabled
-        await interaction.response.send_message("Sorry! The /ask command is temporarily unavailable due to a technical issue.", ephemeral=True)
+        await interaction.response.send_message("Sorry! The /ask command is temporarily unavailable due to a technical issue. Try /help to see what’s available!", ephemeral=True)
         return
         #####################
         
