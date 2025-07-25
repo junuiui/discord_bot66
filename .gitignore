@@ -3,3 +3,4 @@ hid.txt
 .env
 __pycache__/
 *.pyc
+temp.py

@@ -21,7 +21,7 @@ class Valorant(commands.Cog):
         try:
             riot_id, tag = name.split('#')
         except ValueError:
-            return None, "Invalid format! Use RiotID#Tag (e.g. posse#tag)"
+            return None, "Invalid format! Use RiotID#Tag (e.g. azure#bot)"
 
         url = f"https://{region}.api.riotgames.com/riot/account/v1/accounts/by-riot-id/{riot_id}/{tag}"
         async with self.session.get(url, headers=HEADERS) as resp:
@@ -31,6 +31,16 @@ class Valorant(commands.Cog):
                 return None, "Player not found."
             else:
                 return None, f"Error fetching player info: HTTP {resp.status}"
+            
+    async def get_rank(self, puuid: str):
+        url = f"https://{REGION}.api.riotgames.com/val/ranked/v1/players/{puuid}"
+        async with self.session.get(url, headers=HEADERS) as resp:
+            if resp.status == 200:
+                return await resp.json(), None
+            elif resp.status == 404:
+                return None, "Rank data not found."
+            else:
+                return None, f"Error fetching rank data: HTTP {resp.status}"
 
     async def get_matchlist(self, puuid: str, count: int = 1):
         url = f"https://{REGION}.api.riotgames.com/val/match/v1/matches/by-puuid/{puuid}/ids?count={count}"
@@ -48,9 +58,15 @@ class Valorant(commands.Cog):
             else:
                 return None, f"Error fetching match data: HTTP {resp.status}"
 
-    @app_commands.command(name="valorant_match_info", description="Search Valorant recent match info")
-    @app_commands.describe(player="RiotID#Tag (ex: Junuiui#KR)")
-    async def valorant_match_info(self, interaction: discord.Interaction, player: str):
+    @app_commands.command(name="valorant_recent_match_info", description="Search Valorant recent match info")
+    @app_commands.describe(player="RiotID#Tag (ex: azure#bot)")
+    async def valorant_recent_match_info(self, interaction: discord.Interaction, player: str):
+        
+        # Disabled
+        await interaction.response.send_message("/valorant_recent_match_info is currently disabled due to API KEY reset")
+        return 
+        ##############
+        
         await interaction.response.defer(thinking=True)
 
         summoner_info, error = await self.get_summoner("na1", player)
@@ -93,6 +109,57 @@ class Valorant(commands.Cog):
             info += "Player stats not found in this match."
 
         await interaction.followup.send(info)
+        
+    @app_commands.command(name="valorant_find_player", description="Get Valorant player basic info and rank")
+    @app_commands.describe(player="RiotID#Tag (ex: azure#bot)")
+    async def valorant_find_player(self, interaction: discord.Interaction, player: str):
+        
+        # Disabled
+        await interaction.response.send_message("/valorant_recent_match_info is currently disabled due to API KEY reset")
+        return 
+        ##############
+        
+        await interaction.response.defer(thinking=True)
+
+        summoner_info, error = await self.get_summoner("na1", player)
+        if error:
+            await interaction.followup.send(error)
+            return
+
+        puuid = summoner_info['puuid']
+        level = summoner_info.get('account_level', 'Unknown')
+        name = summoner_info.get('game_name', 'Unknown')
+        tag = summoner_info.get('tag_line', 'Unknown')
+
+        rank_info, error = await self.get_rank(puuid)
+        rank = "Unranked"
+        ranked_games = 0
+        if not error and rank_info:
+            current_tier = rank_info.get('currenttierpatched')
+            ranked_games = rank_info.get('number_of_games', 0)
+            if current_tier:
+                rank = current_tier
+
+
+        match_ids, error = await self.get_matchlist(puuid, count=20)
+        normal_games = 0
+        if not error and match_ids:
+            for match_id in match_ids:
+                match_data, err = await self.get_match(match_id)
+                if err or not match_data:
+                    continue
+                mode = match_data.get('metadata', {}).get('mode', '').lower()
+                if mode != "competitive" and mode != "ranked":  # differ by API
+                    normal_games += 1
+
+        embed = discord.Embed(title=f"Valorant Info: {name}#{tag}", color=discord.Color.blue())
+        embed.add_field(name="Level", value=str(level), inline=True)
+        embed.add_field(name="Rank", value=rank, inline=True)
+        embed.add_field(name="Ranked Games Played", value=str(ranked_games), inline=True)
+        embed.add_field(name="Normal Games (recent 20)", value=str(normal_games), inline=True)
+
+        await interaction.followup.send(embed=embed)
+
 
     async def cog_unload(self):
         await self.session.close()
