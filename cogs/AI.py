@@ -15,10 +15,10 @@ class AI(commands.Cog):
     @app_commands.describe(question="What do you want to ask GPT?")
     async def ask(self, interaction: Interaction, question: str):
         
-        # DISABLED
-        await interaction.response.send_message("/ask is currently disabled.", ephemeral=True)
+        # disabled
+        await interaction.response.send_message("Sorry! The /ask command is temporarily unavailable due to a technical issue.", ephemeral=True)
         return
-        ####################
+        #####################
         
         if not self.api_key:
             await interaction.response.send_message("/ask is currently disabled.", ephemeral=True)

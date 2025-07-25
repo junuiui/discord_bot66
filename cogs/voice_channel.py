@@ -17,6 +17,11 @@ class Voice_Channel(commands.Cog):
     @app_commands.command(name="join", description="Joining the user's current vc")
     async def join(self, interaction: discord.Interaction):
         print("/join called")
+        
+        # disabled
+        await interaction.response.send_message("Sorry! The /join command is temporarily unavailable due to a technical issue.", ephemeral=True)
+        return
+        #####################
 
         vc = interaction.user.voice
         

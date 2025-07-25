@@ -20,6 +20,11 @@ class Music(commands.Cog):
     async def play(self, interaction: discord.Interaction, query: str):
         print("/play called")
         
+        # disabled
+        await interaction.response.send_message("Sorry! The /play command is temporarily unavailable due to a technical issue.", ephemeral=True)
+        return
+        #####################
+        
         if not interaction.user.voice or not interaction.user.voice.channel:
             await interaction.response.send_message("You are not in a voice channel", ephemeral=True)
             return

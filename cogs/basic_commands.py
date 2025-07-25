@@ -39,7 +39,7 @@ class BasicCommands(commands.Cog):
         embed.add_field(name="`/help`", value="Show this help message.", inline=False)
         embed.add_field(name="`/random_number min max`", value="Get a random number in a given range.", inline=False)
         embed.add_field(name="`/choose options`", value="Choose one option from a comma-separated list.", inline=False)
-        embed.add_field(name="`/join`", value="Join the voice channel you're in.", inline=False)
+        embed.add_field(name="`/join`", value="(NOT WORKING) Join the voice channel you're in.", inline=False)
         embed.add_field(name="`/leave`", value="Leave the voice channel.", inline=False)
         embed.add_field(name="`/play query`", value="Search and play music from YouTube.", inline=False)
 
