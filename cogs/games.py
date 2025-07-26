@@ -97,5 +97,49 @@ class Games(commands.Cog):
         await asyncio.sleep(1) 
         await interaction.followup.send(f"Random date: **{random_day.strftime('%Y-%m-%d')}**")
     
+    @app_commands.command(name="rock_paper_scissors", description="Play Rock Paper Scissors with Azure")
+    @app_commands.describe(choice="Choose rock, paper, or scissors")
+    async def rock_paper_scissors(self, interaction: discord.Interaction, choice: str):
+        user_choice = choice.lower()
+        valid_choices = ["rock", "paper", "scissors"]
+        
+        if user_choice not in valid_choices:
+            await interaction.response.send_message("Please choose `rock`, `paper`, or `scissors`.", ephemeral=True)
+            return
+
+        bot_choice = random.choice(valid_choices)
+
+        result = ""
+        if user_choice == bot_choice:
+            result = "It's a tie! 🤝"
+        elif (user_choice == "rock" and bot_choice == "scissors") or \
+             (user_choice == "paper" and bot_choice == "rock") or \
+             (user_choice == "scissors" and bot_choice == "paper"):
+            result = "You win!"
+        else:
+            result = "Azure wins!"
+
+        embed = discord.Embed(title="Rock Paper Scissors", color=discord.Color.blurple())
+        embed.add_field(name="You chose", value=user_choice.capitalize(), inline=True)
+        embed.add_field(name="Azure chose", value=bot_choice.capitalize(), inline=True)
+        embed.add_field(name="Result", value=result, inline=False)
+
+        await interaction.response.send_message(embed=embed)
+        
+    @app_commands.command(name="8ball", description="Ask the magic 8-ball a question")
+    @app_commands.describe(question="Your yes/no question")
+    async def eight_ball(self, interaction: discord.Interaction, question: str):
+        responses = [
+            "It is certain.", "Without a doubt.", "You may rely on it.",
+            "Yes – definitely.", "Most likely.", "Outlook good.",
+            "Yes.", "Signs point to yes.", "Reply hazy, try again.",
+            "Ask again later.", "Better not tell you now.",
+            "Don't count on it.", "My reply is no.",
+            "Very doubtful.", "Outlook not so good."
+        ]
+        response = random.choice(responses)
+        await interaction.response.send_message(f"Hmm... {response}")
+    
+    
 async def setup(bot):
     await bot.add_cog(Games(bot))

@@ -4,3 +4,5 @@ hid.txt
 __pycache__/
 *.pyc
 temp.py
+todo.txt
+plans.json
