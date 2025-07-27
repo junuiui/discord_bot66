@@ -5,11 +5,13 @@ from discord.ext import commands
 class BasicCommands(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-    
+        
+    #################################################################
     @commands.Cog.listener()
     async def on_ready(self):
         print(f"{__name__} is online!")
         
+    #################################################################    
     @app_commands.command(name="info", description="Show info about the bot and developer.")
     async def info(self, interaction: discord.Interaction):
         embed = discord.Embed(
@@ -28,6 +30,7 @@ class BasicCommands(commands.Cog):
         
         await interaction.response.send_message(embed=embed)
 
+    #################################################################
     @app_commands.command(name="help", description="Show commands.")
     async def help(self, interaction: discord.Interaction):
         embed = discord.Embed(
@@ -71,9 +74,8 @@ class BasicCommands(commands.Cog):
         embed.add_field(name="`/queue`", value="(NOT WORKING) Show the current music queue.", inline=False)
 
         await interaction.response.send_message(embed=embed)
-
-
-    
+        
+    #################################################################
     @app_commands.command(name="ping", description="Latency Test")
     async def ping(self, interaction: discord.Interaction):
         latency = round(self.bot.latency * 1000)  # s -> ms
