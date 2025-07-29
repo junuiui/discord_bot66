@@ -42,7 +42,7 @@ class BasicCommands(commands.Cog):
         # Available commands
         embed.add_field(name="\u200b", value="―" * 10, inline=False)
         embed.add_field(name="**Available Commands**", value="\u200b", inline=False)
-        embed.add_field(name="`/hello`", value="Say hello to Azure!", inline=True)
+        embed.add_field(name="`/hello`", value="Say hello to Azure!", inline=False)
         embed.add_field(name="`/info`", value="Show info about the bot and developer.", inline=False)
         embed.add_field(name="`/help`", value="Show this help message.", inline=False)
         embed.add_field(name="`/ping`", value="Check the bot's response time (latency).", inline=False)
@@ -63,15 +63,15 @@ class BasicCommands(commands.Cog):
         embed.add_field(name="`/plan_delete`", value="Delete a saved plan by ID.", inline=False)
         embed.add_field(name="`/plan_latest`", value="Show the most recent plan you added.", inline=False)
 
-        # Unavailable commands
-        embed.add_field(name="\u200b", value="―" * 10, inline=False)
-        embed.add_field(name="**Unavailable Commands (temporarily disabled)**", value="\u200b", inline=False)
-        embed.add_field(name="`/join`", value="(NOT WORKING) Join the voice channel you're in.", inline=False)
-        embed.add_field(name="`/leave`", value="(NOT WORKING) Leave the voice channel.", inline=False)
-        embed.add_field(name="`/ask`", value="(NOT WORKING) Ask AI a question and get a response.", inline=False)
-        embed.add_field(name="`/pause`", value="(NOT WORKING) Pause the current music track.", inline=False)
-        embed.add_field(name="`/play`", value="(NOT WORKING) Search and play music from YouTube.", inline=False)
-        embed.add_field(name="`/queue`", value="(NOT WORKING) Show the current music queue.", inline=False)
+        # # Unavailable commands
+        # embed.add_field(name="\u200b", value="―" * 10, inline=False)
+        # embed.add_field(name="**Unavailable Commands (temporarily disabled)**", value="\u200b", inline=False)
+        # embed.add_field(name="`/join`", value="(NOT WORKING) Join the voice channel you're in.", inline=False)
+        # embed.add_field(name="`/leave`", value="(NOT WORKING) Leave the voice channel.", inline=False)
+        # embed.add_field(name="`/ask`", value="(NOT WORKING) Ask AI a question and get a response.", inline=False)
+        # embed.add_field(name="`/pause`", value="(NOT WORKING) Pause the current music track.", inline=False)
+        # embed.add_field(name="`/play`", value="(NOT WORKING) Search and play music from YouTube.", inline=False)
+        # embed.add_field(name="`/queue`", value="(NOT WORKING) Show the current music queue.", inline=False)
 
         await interaction.response.send_message(embed=embed)
         
